@@ -1,18 +1,21 @@
 import * as dotenv from 'dotenv';
-
 import { HardhatUserConfig } from 'hardhat/config';
+
 import '@nomiclabs/hardhat-etherscan';
 import '@nomiclabs/hardhat-waffle';
 import '@typechain/hardhat';
 import 'hardhat-gas-reporter';
 import 'hardhat-contract-sizer';
+import {
+  getEnvVars,
+  getForkNetworkConfig,
+  getHardhatNetworkConfig,
+  getNetworkConfig,
+} from './config';
 
 dotenv.config();
 
-const OPTIMIZER = process.env.OPTIMIZER === 'true';
-const CI = process.env.CI === 'true';
-const COVERAGE = process.env.COVERAGE === 'true';
-const REPORT_GAS = process.env.REPORT_GAS === 'true';
+const { OPTIMIZER, REPORT_GAS, FORKING_NETWORK, COVERAGE } = getEnvVars();
 
 if (COVERAGE) {
   require('solidity-coverage');
@@ -33,15 +36,15 @@ const config: HardhatUserConfig = {
     ],
   },
   networks: {
-    hardhat: {
-      blockGasLimit: 10000000,
-      allowUnlimitedContractSize: !OPTIMIZER,
-    },
+    main: getNetworkConfig('main'),
+    goerli: getNetworkConfig('goerli'),
+    hardhat: FORKING_NETWORK
+      ? getForkNetworkConfig(FORKING_NETWORK)
+      : getHardhatNetworkConfig(),
+    local: getNetworkConfig('local'),
   },
   gasReporter: {
     enabled: REPORT_GAS,
-    currency: 'USD',
-    outputFile: CI ? 'gas-report.txt' : undefined,
   },
   contractSizer: {
     runOnCompile: OPTIMIZER,

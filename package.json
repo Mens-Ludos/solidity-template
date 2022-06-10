@@ -16,13 +16,13 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "git-cz",
-    "coverage": "hardhat coverage",
+    "coverage": "cross-env COVERAGE=true hardhat coverage",
     "clean": "hardhat clean",
     "compile": "hardhat compile",
     "build": "yarn clean && yarn compile",
     "test": "hardhat test",
     "lint:ts": "eslint \"**/*.{js,ts}\"",
-    "lint:ts:fix": "eslint \"**/*.{js,ts}\" --quiet --fix",
+    "lint:ts:fix": "eslint \"**/*.{js,ts}\" --fix",
     "lint:sol": "solhint \"contracts/**/*.sol\"",
     "lint:sol:fix": "solhint \"contracts/**/*.sol\" --quiet --fix",
     "format:ts": "prettier \"**/*.{js,ts,json}\" --check",
@@ -31,8 +31,8 @@
     "format:sol:fix": "prettier \"contracts/**/*.sol\" --write",
     "format:yml": "prettier \"**/*.{yml,yaml}\" --check",
     "format:yml:fix": "prettier \"**/*.{yml,yaml}\" --write",
-    "check-codestyle": "yarn lint:sol && yarn format:sol && yarn lint:ts && yarn format:ts && yarn format:yml",
-    "update-codestyle": "yarn lint:sol:fix && yarn format:sol:fix && yarn lint:ts:fix && yarn format:ts:fix && yarn format:yml:fix"
+    "codestyle": "yarn lint:sol && yarn format:sol && yarn lint:ts && yarn format:ts && yarn format:yml",
+    "codestyle:fix": "yarn lint:sol:fix && yarn format:sol:fix && yarn lint:ts:fix && yarn format:ts:fix && yarn format:yml:fix"
   },
   "config": {
     "commitizen": {
@@ -73,7 +73,7 @@
     "prettier": "^2.3.2",
     "prettier-plugin-solidity": "^1.0.0-beta.13",
     "solhint": "^3.3.6",
-    "solidity-coverage": "^0.7.16",
+    "solidity-coverage": "^0.7.21",
     "ts-node": "^10.1.0",
     "typechain": "^5.1.2",
     "typescript": "^4.5.2"
