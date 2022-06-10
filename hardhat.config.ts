@@ -12,6 +12,7 @@ import {
   getHardhatNetworkConfig,
   getNetworkConfig,
 } from './config';
+import './tasks';
 
 dotenv.config();
 
@@ -25,7 +26,7 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: '0.8.9',
+        version: '0.8.0',
         settings: {
           optimizer: {
             enabled: OPTIMIZER,
