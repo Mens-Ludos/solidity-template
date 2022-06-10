@@ -16,13 +16,13 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "git-cz",
-    "coverage": "hardhat coverage",
+    "coverage": "cross-env COVERAGE=true hardhat coverage",
     "clean": "hardhat clean",
     "compile": "hardhat compile",
     "build": "yarn clean && yarn compile",
     "test": "hardhat test",
     "lint:ts": "eslint \"**/*.{js,ts}\"",
-    "lint:ts:fix": "eslint \"**/*.{js,ts}\" --quiet --fix",
+    "lint:ts:fix": "eslint \"**/*.{js,ts}\" --fix",
     "lint:sol": "solhint \"contracts/**/*.sol\"",
     "lint:sol:fix": "solhint \"contracts/**/*.sol\" --quiet --fix",
     "format:ts": "prettier \"**/*.{js,ts,json}\" --check",
@@ -31,18 +31,12 @@
     "format:sol:fix": "prettier \"contracts/**/*.sol\" --write",
     "format:yml": "prettier \"**/*.{yml,yaml}\" --check",
     "format:yml:fix": "prettier \"**/*.{yml,yaml}\" --write",
-    "check-codestyle": "yarn lint:sol && yarn format:sol && yarn lint:ts && yarn format:ts && yarn format:yml",
-    "update-codestyle": "yarn lint:sol:fix && yarn format:sol:fix && yarn lint:ts:fix && yarn format:ts:fix && yarn format:yml:fix"
-  },
-  "config": {
-    "commitizen": {
-      "path": "@commitlint/prompt"
-    }
+    "codestyle": "yarn lint:sol && yarn format:sol && yarn lint:ts && yarn format:ts && yarn format:yml",
+    "codestyle:fix": "yarn lint:sol:fix && yarn format:sol:fix && yarn lint:ts:fix && yarn format:ts:fix && yarn format:yml:fix"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.0",
-    "@commitlint/config-conventional": "^17.0.0",
-    "@commitlint/prompt": "^17.0.0",
+    "@commitlint/config-conventional": "^17.0.2",
     "@nomiclabs/hardhat-ethers": "^2.0.0",
     "@nomiclabs/hardhat-etherscan": "^3.0.0",
     "@nomiclabs/hardhat-waffle": "^2.0.0",
@@ -54,7 +48,7 @@
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "chai": "^4.2.0",
-    "commitizen": "^4.2.4",
+    "colors": "^1.4.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
     "eslint": "^7.29.0",
@@ -73,7 +67,7 @@
     "prettier": "^2.3.2",
     "prettier-plugin-solidity": "^1.0.0-beta.13",
     "solhint": "^3.3.6",
-    "solidity-coverage": "^0.7.16",
+    "solidity-coverage": "^0.7.21",
     "ts-node": "^10.1.0",
     "typechain": "^5.1.2",
     "typescript": "^4.5.2"
