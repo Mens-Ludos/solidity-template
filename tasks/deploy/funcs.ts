@@ -1,4 +1,5 @@
 import colors from 'colors';
+import { HardhatRuntimeEnvironment } from 'hardhat/types';
 
 export const logDeployment = (
   contractName: string,
@@ -11,3 +12,6 @@ export const logDeployment = (
     console.log(colors.bold(colors.yellow(`${key}:`)), `"${value}"`),
   );
 };
+
+export const preAction = (hre: HardhatRuntimeEnvironment): Promise<void> =>
+  hre.run('clean').then(() => hre.run('compile'));
