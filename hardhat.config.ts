@@ -12,10 +12,12 @@ import {
   getHardhatNetworkConfig,
   getNetworkConfig,
 } from './config';
+import './tasks';
 
 dotenv.config();
 
-const { OPTIMIZER, REPORT_GAS, FORKING_NETWORK, COVERAGE } = getEnvVars();
+const { OPTIMIZER, REPORT_GAS, FORKING_NETWORK, COVERAGE, ETHERSCAN_API_KEY } =
+  getEnvVars();
 
 if (COVERAGE) {
   require('solidity-coverage');
@@ -25,7 +27,7 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: '0.8.9',
+        version: '0.8.0',
         settings: {
           optimizer: {
             enabled: OPTIMIZER,
@@ -49,10 +51,9 @@ const config: HardhatUserConfig = {
   contractSizer: {
     runOnCompile: OPTIMIZER,
   },
-  // @dev if you wanna verify contracts uncomment code below
-  // etherscan: {
-  //   apiKey: process.env.ETHERSCAN_API_KEY,
-  // },
+  etherscan: {
+    apiKey: ETHERSCAN_API_KEY,
+  },
 };
 
 export default config;
