@@ -35,7 +35,7 @@
     "codestyle:fix": "yarn lint:sol:fix && yarn format:sol:fix && yarn lint:ts:fix && yarn format:ts:fix && yarn format:yml:fix"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.0",
+    "@commitlint/cli": "^17.0.2",
     "@commitlint/config-conventional": "^17.0.2",
     "@nomiclabs/hardhat-ethers": "^2.0.0",
     "@nomiclabs/hardhat-etherscan": "^3.0.0",
