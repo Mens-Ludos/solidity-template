@@ -16,7 +16,7 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "git-cz",
-    "coverage": "cross-env COVERAGE=true hardhat coverage",
+    "coverage": "cross-env COVERAGE=true hardhat coverage --solcoverjs ./.solcover.json",
     "clean": "hardhat clean",
     "compile": "hardhat compile",
     "build": "yarn clean && yarn compile",
