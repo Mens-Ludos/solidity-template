@@ -1,36 +1,24 @@
-import * as dotenv from 'dotenv';
 import { HardhatUserConfig } from 'hardhat/config';
 
-import '@nomiclabs/hardhat-etherscan';
-import '@nomiclabs/hardhat-waffle';
-import '@typechain/hardhat';
-import 'hardhat-gas-reporter';
 import 'hardhat-contract-sizer';
+import '@nomicfoundation/hardhat-toolbox';
 import {
-  getEnvVars,
+  ENV,
   getForkNetworkConfig,
   getHardhatNetworkConfig,
   getNetworkConfig,
 } from './config';
-import './tasks';
 
-dotenv.config();
-
-const { OPTIMIZER, REPORT_GAS, FORKING_NETWORK, COVERAGE, ETHERSCAN_API_KEY } =
-  getEnvVars();
-
-if (COVERAGE) {
-  require('solidity-coverage');
-}
+const { OPTIMIZER, REPORT_GAS, FORKING_NETWORK, ETHERSCAN_API_KEY } = ENV;
 
 const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: '0.8.0',
+        version: '0.8.9',
         settings: {
           optimizer: {
-            enabled: OPTIMIZER,
+            enabled: true,
             runs: 200,
           },
         },
