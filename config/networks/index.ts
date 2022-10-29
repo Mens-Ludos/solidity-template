@@ -31,7 +31,7 @@ export const chainIds: ConfigPerNetwork<number> = {
   local: 31337,
 };
 
-export const mnemonics: ConfigPerNetwork<string> = {
+export const mnemonics: ConfigPerNetwork<string | undefined> = {
   main: MNEMONIC_PROD,
   goerli: MNEMONIC_DEV,
   hardhat: MNEMONIC_DEV,
@@ -67,9 +67,11 @@ export const initialBasesFeePerGas: ConfigPerNetwork<number | undefined> = {
 };
 
 export const getBaseNetworkConfig = (network: Network): NetworkUserConfig => ({
-  accounts: {
-    mnemonic: mnemonics[network],
-  },
+  accounts: mnemonics[network]
+    ? {
+        mnemonic: mnemonics[network],
+      }
+    : [],
   chainId: chainIds[network],
   gas: gases[network],
   gasPrice: gasPrices[network],
@@ -97,7 +99,5 @@ export const getForkNetworkConfig = (
 
 export const getHardhatNetworkConfig = (): HardhatNetworkUserConfig => ({
   ...getBaseNetworkConfig('hardhat'),
-  accounts: {
-    mnemonic: mnemonics.hardhat,
-  },
+  accounts: mnemonics.hardhat ? { mnemonic: mnemonics.hardhat } : undefined,
 });
