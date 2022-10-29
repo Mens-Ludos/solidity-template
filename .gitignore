@@ -14,3 +14,6 @@ artifacts
 
 # Error logs
 yarn-error.log
+
+# Docgen
+docgen
