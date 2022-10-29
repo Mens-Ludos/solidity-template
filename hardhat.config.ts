@@ -1,15 +1,16 @@
-import { HardhatUserConfig } from 'hardhat/config';
+import type { HardhatUserConfig } from 'hardhat/config';
 
-import 'hardhat-contract-sizer';
-import 'hardhat-docgen';
 import '@nomicfoundation/hardhat-toolbox';
+import 'hardhat-contract-sizer';
+import 'hardhat-deploy';
+import 'hardhat-docgen';
+
 import {
   ENV,
   getForkNetworkConfig,
   getHardhatNetworkConfig,
   getNetworkConfig,
 } from './config';
-import 'hardhat-deploy';
 
 const { OPTIMIZER, REPORT_GAS, FORKING_NETWORK, ETHERSCAN_API_KEY } = ENV;
 
