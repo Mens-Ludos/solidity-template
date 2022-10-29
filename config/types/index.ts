@@ -1,6 +1,6 @@
 type NetworkBase = 'goerli';
 type RpcNetwork = NetworkBase | 'mainnet';
-export type Network = NetworkBase | 'main' | 'hardhat' | 'local';
+export type Network = NetworkBase | 'main' | 'hardhat' | 'localhost';
 export type RpcUrl =
   | `https://eth-${RpcNetwork}.g.alchemy.com/v2/${string}`
   | `https://${RpcNetwork}.infura.io/v3/${string}`

@@ -14,56 +14,56 @@ export const rpcUrls: ConfigPerNetwork<RpcUrl> = {
     ? `https://eth-goerli.g.alchemy.com/v2/${ALCHEMY_KEY}`
     : `https://goerli.infura.io/v3/${INFURA_KEY}`,
   hardhat: 'http://localhost:8545',
-  local: 'http://localhost:8545',
+  localhost: 'http://localhost:8545',
 };
 
-export const gasPrices: ConfigPerNetwork<number> = {
+export const gasPrices: ConfigPerNetwork<number | undefined> = {
   main: 1 * GWEI,
-  goerli: 10 * GWEI,
+  goerli: undefined,
   hardhat: 1 * GWEI,
-  local: 70 * GWEI,
+  localhost: 70 * GWEI,
 };
 
 export const chainIds: ConfigPerNetwork<number> = {
   main: 1,
   goerli: 5,
   hardhat: 31337,
-  local: 31337,
+  localhost: 31337,
 };
 
 export const mnemonics: ConfigPerNetwork<string | undefined> = {
   main: MNEMONIC_PROD,
   goerli: MNEMONIC_DEV,
   hardhat: MNEMONIC_DEV,
-  local: MNEMONIC_DEV,
+  localhost: MNEMONIC_DEV,
 };
 
 export const gases: ConfigPerNetwork<number | undefined> = {
   main: undefined,
   goerli: 1_250_000,
   hardhat: undefined,
-  local: 1_250_000,
+  localhost: 1_250_000,
 };
 
 export const timeouts: ConfigPerNetwork<number | undefined> = {
   main: undefined,
   goerli: 999999,
   hardhat: undefined,
-  local: 999999,
+  localhost: 999999,
 };
 
 export const blockGasLimits: ConfigPerNetwork<number | undefined> = {
   main: 300 * 10 ** 6,
   goerli: undefined,
   hardhat: 300 * 10 ** 6,
-  local: undefined,
+  localhost: undefined,
 };
 
 export const initialBasesFeePerGas: ConfigPerNetwork<number | undefined> = {
   main: undefined,
   goerli: undefined,
   hardhat: 0,
-  local: undefined,
+  localhost: undefined,
 };
 
 export const getBaseNetworkConfig = (network: Network): NetworkUserConfig => ({
@@ -71,7 +71,7 @@ export const getBaseNetworkConfig = (network: Network): NetworkUserConfig => ({
     ? {
         mnemonic: mnemonics[network],
       }
-    : [],
+    : undefined,
   chainId: chainIds[network],
   gas: gases[network],
   gasPrice: gasPrices[network],
@@ -83,6 +83,7 @@ export const getBaseNetworkConfig = (network: Network): NetworkUserConfig => ({
 export const getNetworkConfig = (network: Network): NetworkUserConfig => ({
   ...getBaseNetworkConfig(network),
   url: rpcUrls[network],
+  saveDeployments: true,
 });
 
 export const getForkNetworkConfig = (
@@ -92,6 +93,8 @@ export const getForkNetworkConfig = (
   accounts: {
     mnemonic: mnemonics[network],
   },
+  live: false,
+  saveDeployments: true,
   forking: {
     url: rpcUrls[network],
   },
@@ -100,4 +103,6 @@ export const getForkNetworkConfig = (
 export const getHardhatNetworkConfig = (): HardhatNetworkUserConfig => ({
   ...getBaseNetworkConfig('hardhat'),
   accounts: mnemonics.hardhat ? { mnemonic: mnemonics.hardhat } : undefined,
+  saveDeployments: true,
+  live: false,
 });
