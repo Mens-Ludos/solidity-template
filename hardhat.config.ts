@@ -1,6 +1,7 @@
 import { HardhatUserConfig } from 'hardhat/config';
 
 import 'hardhat-contract-sizer';
+import 'hardhat-docgen';
 import '@nomicfoundation/hardhat-toolbox';
 import {
   ENV,
@@ -41,6 +42,11 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,
+  },
+  docgen: {
+    path: './docgen',
+    clear: true,
+    runOnCompile: false,
   },
 };
 
