@@ -1,8 +1,10 @@
-import { HardhatUserConfig } from 'hardhat/config';
+import type { HardhatUserConfig } from 'hardhat/config';
 
-import 'hardhat-contract-sizer';
-import 'hardhat-docgen';
 import '@nomicfoundation/hardhat-toolbox';
+import 'hardhat-contract-sizer';
+import 'hardhat-deploy';
+import 'hardhat-docgen';
+
 import {
   ENV,
   getForkNetworkConfig,
@@ -26,13 +28,16 @@ const config: HardhatUserConfig = {
       },
     ],
   },
+  namedAccounts: {
+    deployer: 0,
+  },
   networks: {
     main: getNetworkConfig('main'),
     goerli: getNetworkConfig('goerli'),
     hardhat: FORKING_NETWORK
       ? getForkNetworkConfig(FORKING_NETWORK)
       : getHardhatNetworkConfig(),
-    local: getNetworkConfig('local'),
+    localhost: getNetworkConfig('localhost'),
   },
   gasReporter: {
     enabled: REPORT_GAS,
@@ -43,11 +48,23 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,
   },
+  paths: {
+    deploy: 'deploy/',
+    deployments: 'deployments/',
+  },
   docgen: {
     path: './docgen',
     clear: true,
     runOnCompile: false,
   },
+  external: FORKING_NETWORK
+    ? {
+        deployments: {
+          hardhat: ['deployments/' + FORKING_NETWORK],
+          local: ['deployments/' + FORKING_NETWORK],
+        },
+      }
+    : undefined,
 };
 
 export default config;
