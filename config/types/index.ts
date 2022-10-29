@@ -15,7 +15,7 @@ export interface Environment {
   readonly OPTIMIZER: boolean;
   readonly COVERAGE: boolean;
   readonly REPORT_GAS: boolean;
-  readonly MNEMONIC_DEV: string;
+  readonly MNEMONIC_DEV?: string;
   readonly MNEMONIC_PROD: string;
   readonly FORKING_NETWORK?: Network;
 }
