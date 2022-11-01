@@ -7,6 +7,12 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["./scripts", "./test", "./typechain-types", "./deploy"],
+  "include": [
+    "./scripts",
+    "./test",
+    "./typechain-types",
+    "./deploy",
+    "./helpers"
+  ],
   "files": ["./hardhat.config.ts"]
 }
