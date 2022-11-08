@@ -1,7 +1,7 @@
 {
   "norpc": true,
-  "testCommand": "npm test",
-  "compileCommand": "npm run compile",
+  "testCommand": "yarn test",
+  "compileCommand": "yarn compile",
   "skipFiles": ["mocks"],
   "configureYulOptimizer": true,
   "providerOptions": {

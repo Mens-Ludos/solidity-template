@@ -1,41 +1,35 @@
-import * as dotenv from 'dotenv';
-import { HardhatUserConfig } from 'hardhat/config';
+import type { HardhatUserConfig } from 'hardhat/config';
 
-import '@nomiclabs/hardhat-etherscan';
-import '@nomiclabs/hardhat-waffle';
-import '@typechain/hardhat';
-import 'hardhat-gas-reporter';
+import '@nomicfoundation/hardhat-toolbox';
 import 'hardhat-contract-sizer';
+import 'hardhat-deploy';
+import 'hardhat-docgen';
+
 import {
-  getEnvVars,
+  ENV,
   getForkNetworkConfig,
   getHardhatNetworkConfig,
   getNetworkConfig,
 } from './config';
-import './tasks';
 
-dotenv.config();
-
-const { OPTIMIZER, REPORT_GAS, FORKING_NETWORK, COVERAGE, ETHERSCAN_API_KEY } =
-  getEnvVars();
-
-if (COVERAGE) {
-  require('solidity-coverage');
-}
+const { OPTIMIZER, REPORT_GAS, FORKING_NETWORK, ETHERSCAN_API_KEY } = ENV;
 
 const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: '0.8.0',
+        version: '0.8.9',
         settings: {
           optimizer: {
-            enabled: OPTIMIZER,
+            enabled: true,
             runs: 200,
           },
         },
       },
     ],
+  },
+  namedAccounts: {
+    deployer: 0,
   },
   networks: {
     main: getNetworkConfig('main'),
@@ -43,7 +37,7 @@ const config: HardhatUserConfig = {
     hardhat: FORKING_NETWORK
       ? getForkNetworkConfig(FORKING_NETWORK)
       : getHardhatNetworkConfig(),
-    local: getNetworkConfig('local'),
+    localhost: getNetworkConfig('localhost'),
   },
   gasReporter: {
     enabled: REPORT_GAS,
@@ -54,6 +48,23 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,
   },
+  paths: {
+    deploy: 'deploy/',
+    deployments: 'deployments/',
+  },
+  docgen: {
+    path: './docgen',
+    clear: true,
+    runOnCompile: false,
+  },
+  external: FORKING_NETWORK
+    ? {
+        deployments: {
+          hardhat: ['deployments/' + FORKING_NETWORK],
+          local: ['deployments/' + FORKING_NETWORK],
+        },
+      }
+    : undefined,
 };
 
 export default config;
